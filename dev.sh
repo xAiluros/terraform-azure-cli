@@ -14,9 +14,9 @@ IMAGE_NAME="zenika/terraform-azure-cli"
 [[ -n $3 ]] && IMAGE_TAG=$3 || IMAGE_TAG="dev"
 
 # Lint Dockerfile
-echo "Linting Dockerfile..."
-docker run --rm --interactive --volume "${PWD}":/data --workdir /data hadolint/hadolint:2.5.0-alpine /bin/hadolint --config hadolint.yaml Dockerfile
-echo "Dockerfile successfully linted!"
+#echo "Linting Dockerfile..."
+#docker run --rm --interactive --volume "${PWD}":/data --workdir /data hadolint/hadolint:2.5.0-alpine /bin/hadolint --config hadolint.yaml Dockerfile
+#echo "Dockerfile successfully linted!"
 
 # Build image
 echo "Building images with AZURE_CLI_VERSION=${AZ_VERSION} and TERRAFORM_VERSION=${TF_VERSION}..."
