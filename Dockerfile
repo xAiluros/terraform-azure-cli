@@ -44,19 +44,16 @@ RUN apt-get update \
     git \
     python${PYTHON_MAJOR_VERSION} \
     python3-distutils \
+    gosu \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python${PYTHON_MAJOR_VERSION} 1
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 WORKDIR /workspace
 COPY --from=terraform-cli /workspace/terraform /usr/local/bin/terraform
 COPY --from=azure-cli /usr/local/bin/az* /usr/local/bin/
 COPY --from=azure-cli /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages /usr/local/lib/python${PYTHON_MAJOR_VERSION}/dist-packages
 COPY --from=azure-cli /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
 
-RUN groupadd --gid 1001 nonroot \
-  # user needs a home folder to store azure credentials
-  && useradd --gid nonroot --create-home --uid 1001 nonroot \
-  && chown nonroot:nonroot /workspace
-USER nonroot
-
-CMD ["bash"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

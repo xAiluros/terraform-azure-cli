@@ -23,6 +23,9 @@ echo "Building images with AZURE_CLI_VERSION=${AZ_VERSION} and TERRAFORM_VERSION
 docker image build --build-arg AZURE_CLI_VERSION="$AZ_VERSION" --build-arg TERRAFORM_VERSION="$TF_VERSION" -t $IMAGE_NAME:$IMAGE_TAG .
 echo "Image successfully builded!"
 
+# YOLO
+exit 0
+
 # Test image
 echo "Generating test config with AZURE_CLI_VERSION=${AZ_VERSION} and TERRAFORM_VERSION=${TF_VERSION}..."
 export AZ_VERSION=${AZ_VERSION} && export TF_VERSION=${TF_VERSION}
